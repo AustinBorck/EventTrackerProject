@@ -7,4 +7,6 @@ import com.skilldistillery.hiketracker.entities.Hike;
 public interface HikeService {
 
 	List<Hike> index();
+
+	Hike singleHike(Integer id);
 }
