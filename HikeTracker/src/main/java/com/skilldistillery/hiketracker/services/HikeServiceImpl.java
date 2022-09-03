@@ -24,7 +24,11 @@ public class HikeServiceImpl implements HikeService {
 	public Hike singleHike(Integer id) {
 		Hike hike = null;
 		Optional<Hike> hikeOpt = hikeRepo.findById(id);
+		if(hikeOpt.isPresent()) {
 		hike = hikeOpt.get();
+		}else if(!hikeOpt.isPresent()) {
+			hike = null;
+		}
 		return hike;
 	}
 	
