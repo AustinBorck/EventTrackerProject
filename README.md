@@ -19,10 +19,10 @@ In this project a user can search for hikes and view a picture of the hike along
 ## Mapping
 | HTTP Verb | URI                                       | Request Body            | Response Body  | Purpose                             |
 |-----------|-------------------------------------------|-------------------------|----------------|-------------------------------------|
-| GET       | `/api/hikes`                              |                         | List of Hikes  | **List** or **collection** endpoint |
-| GET       | `/api/hikes/search/{keyword}`             |                         | Single recipe  | **Retrieve** endpoint               |
-| GET       | `/api/hikes/search/length/{low}/{high}`   |                         | Single recipe  | **Retrieve** endpoint               |
-| GET       | `/api/hikes/search/difficulty/{num}`      |                         | Single recipe  | **Retrieve** endpoint               |
-| POST      | `/api/recipes`                            | JSON for a new Hike     | Created recipe | **Create** endpoint                 |
-| PUT       | `/api/recipes/{id}`                       | JSON for updating Hike  | Updated recipe | **Replace** or **Update** endpoint  |
+| GET       | `/api/hikes`                              |                         | List of hikes  | **List** or **collection** endpoint |
+| GET       | `/api/hikes/search/{keyword}`             |                         | List of hikes  | **Retrieve** endpoint               |
+| GET       | `/api/hikes/search/length/{low}/{high}`   |                         | List of hikes  | **Retrieve** endpoint               |
+| GET       | `/api/hikes/search/difficulty/{num}`      |                         | List of hikes  | **Retrieve** endpoint               |
+| POST      | `/api/recipes`                            | JSON for a new Hike     | Created hike   | **Create** endpoint                 |
+| PUT       | `/api/recipes/{id}`                       | JSON for updating Hike  | Updated hike   | **Replace** or **Update** endpoint  |
 | DELETE    | `/api/recipes/{id}`                       |                         |                | **Delete** a hike                   |
