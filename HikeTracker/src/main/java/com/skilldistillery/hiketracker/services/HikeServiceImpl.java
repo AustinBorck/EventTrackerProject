@@ -27,4 +27,58 @@ public class HikeServiceImpl implements HikeService {
 		hike = hikeOpt.get();
 		return hike;
 	}
+	
+	@Override 
+	public List<Hike> findByKeyword(String keyword){
+		List<Hike> hikes = null;
+		String keyword1 = keyword;
+		hikes = hikeRepo.findByNameContainingOrDescriptionContaining(keyword, keyword1);
+		return hikes;
+	}
+	
+	@Override 
+	public Hike makeHike(Hike hike) {
+		hikeRepo.saveAndFlush(hike);
+		return hike;
+	}
+	
+	@Override
+	public Hike updateHike(Integer id, Hike hike) {
+	Optional<Hike> opHike = hikeRepo.findById(id);
+	Hike updateMe = opHike.get();
+	updateMe.setName(hike.getName());
+	updateMe.setDescription(hike.getDescription());
+	updateMe.setDifficulty(hike.getDifficulty());
+	updateMe.setDogsAllowed(hike.isDogsAllowed());
+	updateMe.setElevation(hike.getElevation());
+	updateMe.setImageUrl(hike.getImageUrl());
+	updateMe.setLatitude(hike.getLatitude());
+	updateMe.setLongitude(hike.getLongitude());
+	updateMe.setTrailLength(hike.getTrailLength());
+		return updateMe;
+	}
+	
+	@Override
+	public boolean deleteHike(Integer id) {
+		boolean worked = false;
+		hikeRepo.deleteById(id);
+		Optional<Hike> deleteMe = hikeRepo.findById(id);
+		if(!deleteMe.isPresent()) {
+			worked = true;
+		}
+		return worked;
+	}
+	@Override
+	public List<Hike> findByLength(double low, double high){
+		List<Hike> hikes = null;
+		hikes = hikeRepo.findByTrailLengthBetween(low, high);
+		return hikes;
+	}
+	
+	@Override
+	public List<Hike> findByDifficulty(Integer num){
+		List<Hike> hikes = null;
+		hikes = hikeRepo.findByDifficulty(num);
+		return hikes;
+	}
 }
