@@ -50,7 +50,7 @@ public class HikeController {
 		return hikes;
 	}
 
-	@PostMapping("/hikes")
+	@PostMapping("hikes")
 	public Hike makeHike(@RequestBody Hike hike, HttpServletResponse res, HttpServletRequest req) {
 		try {
 			hikeServ.makeHike(hike);
