@@ -50,13 +50,14 @@ public class HikeController {
 		return hikes;
 	}
 
-	@PostMapping("hikes")
+	@PostMapping("/hikes")
 	public Hike makeHike(@RequestBody Hike hike, HttpServletResponse res, HttpServletRequest req) {
 		try {
 			hikeServ.makeHike(hike);
 			StringBuffer url = req.getRequestURL();
 			url.append("/").append(hike.getId());
 			res.setHeader("Location", url.toString());
+			res.setStatus(201);
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);

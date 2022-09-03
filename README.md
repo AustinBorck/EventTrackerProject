@@ -15,6 +15,10 @@ In this project, a user can search for hikes and view a picture of the hike alon
 * Spring Boot
 
 ## Lessons Learned
+### HTTPServletResponse & HTTPServletRequest
+* I was having issues with creating a "Location" header and having it appear in Postman, also choosing what status code to set the Response to depending on the issue caused by a bad CRUD operation, I used the REST API tutorial to determine what status should be thrown.
+### Postman
+* Working with a new API can be challenging at first but after a while I got the hang of it and found it very useful, especially in the development phase of mapping and getting the basic operations functioning correctly. 
 
 ## Mapping
 | HTTP Verb | URI                                       | Request Body            | Response Body  | Purpose                             |
