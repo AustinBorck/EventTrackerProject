@@ -59,6 +59,7 @@ public class HikeServiceImpl implements HikeService {
 	updateMe.setLatitude(hike.getLatitude());
 	updateMe.setLongitude(hike.getLongitude());
 	updateMe.setTrailLength(hike.getTrailLength());
+	hikeRepo.save(updateMe);
 		return updateMe;
 	}
 	

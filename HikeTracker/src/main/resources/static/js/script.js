@@ -84,7 +84,6 @@ function displayHikes(hikeList) {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 200) {
 						let hike = JSON.parse(xhr.responseText);
-						console.log(hike);
 						//TODO SEND HIKE TO SINGLE DISPLAY FUNCTION
 						displaySingleHike(hike);
 					} else {
@@ -98,13 +97,26 @@ function displayHikes(hikeList) {
 		ul.appendChild(li);
 	}
 
-
 }
 ////////// END LOADING/DISPLAYING ALL HIKES //////////
 
+function getHikeById(id){
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/hikes/' + id);
+	xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						let hike = JSON.parse(xhr.responseText);
+						displaySingleHike(hike);
+					} else {
+						console.log('ERROR DISPLAYING HIKE: ' + xhr.status);
+					}
+				}
+			}//onreadystatechange end
+			xhr.send();
+		}
+
 ////////// SINGLE HIKE DISPLAY PAGE //////////
-// TODO:
-//add update button
 
 function displaySingleHike(hike) {
 	
@@ -112,30 +124,39 @@ function displaySingleHike(hike) {
 	let listOfHikes = document.getElementById('hikesList');
 	let header = document.getElementById('header');
 	let singleHikeDiv = document.getElementById('singleHikeDiv');
-	form.parentElement.removeChild(form);
-	listOfHikes.parentElement.removeChild(listOfHikes);
+	form.textContent = '';
+	listOfHikes.textContent = '';
 	header.textContent = hike.name;
+	
 	let singleHikePic = document.getElementById('singleHikePic');
 	singleHikePic.src = hike.imageUrl;
 	singleHikePic.height = 500;
 	singleHikePic.width = 800;
+	
 	let singleHikeDesc = document.getElementById('singleHikeDesc');
 	singleHikeDesc.textContent = hike.description;
+	
 	let difficulty = document.getElementById('singleHikeDifficulty');
 	difficulty.textContent = "Difficulty Level: " + hike.difficulty;
+	
 	let elevation = document.getElementById('singleHikeElevation');
 	elevation.textContent = "Elevation Gain: " + hike.elevation + "ft";
+	
 	let trailLength = document.getElementById('singleHikeTrailLength');
 	trailLength.textContent = "Trail Length: " + hike.trailLength + "mi";
+	
 	let dogsAllowed = document.getElementById('singleHikeDogsAllowed');
 	if (hike.dogsAllowed) {
 		dogsAllowed.textContent = "Dogs are allowed.";
 	} else {
 		dogsAllowed.textContent = "No dogs allowed.";
 	}
+	
 	let averagePace = document.getElementById('singleHikeAveragePace');
 	averagePace.textContent = "The average hiker can complete this hike in: " + (hike.trailLength / 2) + " hrs."
+	
 	let maps = document.getElementById('singleHikeMap');
+	
 	//TODO ADD MAPS
 	let deleteBtn = document.createElement('input');
 	deleteBtn.type = 'submit';
@@ -192,7 +213,7 @@ function deleteHike(hike) {
 function updateHike(hike) {
 	
 	let singleHikeData = document.getElementById('singleHikeDiv');
-	singleHikeData.parentElement.removeChild(singleHikeData);
+	singleHikeData.textContent = '';
 	let updateDiv = document.getElementById('updateSingleHikeDiv');
 	let updateForm = document.getElementById('updateHikeForm');
 	let name = document.createElement('input');
@@ -211,12 +232,14 @@ function updateHike(hike) {
 	updateForm.appendChild(label);
 	name.type = 'text';
 	name.value = hike.name;
+	name.name='name';
 	name.className='form-control';
 	updateForm.appendChild(name);
 	
 	label1.textContent='Description';
 	updateForm.appendChild(label1);
 	let description = document.createElement('textarea');
+	description.name='description';
 	description.rows=3;
 	description.cols=50;
 	description.value=hike.description;
@@ -227,6 +250,7 @@ function updateHike(hike) {
 	updateForm.appendChild(label2);
 	let difficulty = document.createElement('input');
 	difficulty.type='number';
+	difficulty.name='difficulty';
 	difficulty.max=5;
 	difficulty.min=1;
 	difficulty.value=hike.difficulty;
@@ -236,6 +260,7 @@ function updateHike(hike) {
 	updateForm.appendChild(label3);
 	let lat = document.createElement('input');
 	lat.type='number';
+	lat.name='lat';
 	lat.value=hike.latitude;
 	updateForm.appendChild(lat);
 	
@@ -243,6 +268,7 @@ function updateHike(hike) {
 	updateForm.appendChild(label4);
 	let long = document.createElement('input');
 	long.type='number';
+	long.name='long';
 	long.value=hike.longitude;
 	updateForm.appendChild(long);
 	
@@ -250,6 +276,7 @@ function updateHike(hike) {
 	updateForm.appendChild(label5);
 	let ele = document.createElement('input');
 	ele.type='number';
+	ele.name='ele';
 	ele.value=hike.elevation;
 	updateForm.appendChild(ele);
 	
@@ -257,6 +284,7 @@ function updateHike(hike) {
 	updateForm.appendChild(label6);
 	let length = document.createElement('input');
 	length.type='number';
+	length.name='length';
 	length.value=hike.trailLength;
 	updateForm.appendChild(length);
 	
@@ -271,6 +299,7 @@ function updateHike(hike) {
 	no.value='false';
 	no.text='No';
 	dogs.appendChild(no);
+	dogs.name='dogs';
 	updateForm.appendChild(dogs);
 	
 	label8.textContent="Image Url"
@@ -279,18 +308,59 @@ function updateHike(hike) {
 	img.type='text';
 	img.className='form-control';
 	img.value=hike.imageUrl;
+	img.name='img';
 	updateForm.appendChild(img);
 	
-	let updateBtn = document.createElement('input');
-	updateBtn.type='submit';
-	updateBtn.value='Update'
-	updateForm.appendChild(updateBtn);
+	let updateConfirm = document.createElement('input');
+	updateConfirm.type='submit';
+	updateConfirm.value='Update'
+	
+		
+	updateConfirm.addEventListener('click', function(e){
+		e.preventDefault();
+		let newHike = {
+			id: hike.id,
+			name: updateForm.name.value,
+			description : updateForm.description.value,
+			difficulty : updateForm.difficulty.value,
+			latitude : updateForm.lat.value,
+			longitude : updateForm.long.value,
+			elevation : updateForm.ele.value,
+			trailLength : updateForm.length.value,
+			dogsAllowed : updateForm.dogs.value,
+			imageUrl : updateForm.img.value,
+		}
+		sendUpdatedHike(newHike);
+	});
+	updateForm.appendChild(updateConfirm);
 	updateDiv.appendChild(updateForm);
 }
 
+function sendUpdatedHike(hike){
+	let xhr = new XMLHttpRequest();
+		xhr.open('PUT', `api/hikes/${hike.id}`);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4){
+				if(xhr.status === 200){
+					console.log('IN FUNCTION ' + JSON.parse(xhr.responseText));
+					let editedHike = JSON.parse(xhr.responseText);
+					hike = editedHike;
+					location.reload();
+					alert("The hike has been updated.");
+				}else{
+					displayError('Error updating hike');
+				}
+			}
+		}
+	
+	xhr.send(JSON.stringify(hike));
+	}
+
+
 ///////// ERROR MSG FUNCTION //////////
 function displayError(msg) {
-	let hikesList = document.getElementById('hikesList');
+	let hikesList = document.getElementById('errorDiv');
 	hikesList.textContent = '';
 	hikesList.textContent = msg;
 }
