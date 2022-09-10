@@ -365,12 +365,3 @@ function displayError(msg) {
 	hikesList.textContent = msg;
 }
 
-
-
-
-
-
-
-
-
-
