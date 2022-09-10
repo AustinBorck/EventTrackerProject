@@ -30,7 +30,7 @@ function init() {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200 || xhr.status === 201) {
-					console.log('hike created');
+					location.reload();
 				} else if (xhr.status === 400) {
 					displayError('Invalid Data');
 				} else {
@@ -74,24 +74,24 @@ function displayHikes(hikeList) {
 		ul.appendChild(br);
 		li.textContent = hike.name;
 		li.style = "list-style:none";
-////////// ADDING LISTENER TO GET A SINGLE HIKE //////////
+		////////// ADDING LISTENER TO GET A SINGLE HIKE //////////
 		li.addEventListener('click', function(e) {
-				console.log('HIKES ID ===== ' + hike.id);
-				let xhr = new XMLHttpRequest();
-				xhr.open('GET', 'api/hikes/' + hike.id);
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState === 4) {
-						if (xhr.status === 200) {
-							let hike = JSON.parse(xhr.responseText);
-							console.log(hike);
-							//TODO SEND HIKE TO SINGLE DISPLAY FUNCTION
-							displaySingleHike(hike);
-						} else {
-							console.log('ERROR DISPLAYING HIKE: ' + xhr.status);
-						}
+			console.log('HIKES ID ===== ' + hike.id);
+			let xhr = new XMLHttpRequest();
+			xhr.open('GET', 'api/hikes/' + hike.id);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						let hike = JSON.parse(xhr.responseText);
+						console.log(hike);
+						//TODO SEND HIKE TO SINGLE DISPLAY FUNCTION
+						displaySingleHike(hike);
+					} else {
+						console.log('ERROR DISPLAYING HIKE: ' + xhr.status);
 					}
-				}//onreadystatechange end
-				xhr.send();
+				}
+			}//onreadystatechange end
+			xhr.send();
 		});
 
 		ul.appendChild(li);
@@ -103,16 +103,15 @@ function displayHikes(hikeList) {
 
 ////////// SINGLE HIKE DISPLAY PAGE //////////
 // TODO:
-//remove other data
-// Display hike with pic && google maps api
 //add home button
 //add delete button
 //add update button
 
-function displaySingleHike(hike){
+function displaySingleHike(hike) {
 	let form = document.getElementById('createHikeDiv');
 	let listOfHikes = document.getElementById('hikesList');
 	let header = document.getElementById('header');
+	let singleHikeDiv = document.getElementById('singleHikeDiv');
 	form.parentElement.removeChild(form);
 	listOfHikes.parentElement.removeChild(listOfHikes);
 	header.textContent = hike.name;
@@ -125,19 +124,52 @@ function displaySingleHike(hike){
 	let difficulty = document.getElementById('singleHikeDifficulty');
 	difficulty.textContent = "Difficulty Level: " + hike.difficulty;
 	let elevation = document.getElementById('singleHikeElevation');
-	elevation.textContent = "Elevation Gain: " + hike.elevation +"ft";
+	elevation.textContent = "Elevation Gain: " + hike.elevation + "ft";
 	let trailLength = document.getElementById('singleHikeTrailLength');
 	trailLength.textContent = "Trail Length: " + hike.trailLength + "mi";
 	let dogsAllowed = document.getElementById('singleHikeDogsAllowed');
-	if(hike.dogsAllowed){
+	if (hike.dogsAllowed) {
 		dogsAllowed.textContent = "Dogs are allowed.";
-	}else{
-	dogsAllowed.textContent = "No dogs allowed.";
+	} else {
+		dogsAllowed.textContent = "No dogs allowed.";
 	}
 	let averagePace = document.getElementById('singleHikeAveragePace');
-	averagePace.textContent = "The average hiker can complete this hike in: " + (hike.trailLength/2) +" hrs."
+	averagePace.textContent = "The average hiker can complete this hike in: " + (hike.trailLength / 2) + " hrs."
 	let maps = document.getElementById('singleHikeMap');
 	//TODO ADD MAPS
+	let deleteBtn = document.createElement('input');
+	deleteBtn.type = 'submit';
+	deleteBtn.value = 'DELETE';
+	deleteBtn.class = "btn btn-danger";
+	singleHikeDiv.appendChild(deleteBtn);
+////////// DELTE HIKE EVENT LISTENER //////////
+	deleteBtn.addEventListener('click', function(e) {
+		if (confirm("Are you sure?")) {
+			let xhr = new XMLHttpRequest();
+			xhr.open('DELETE', 'api/hikes/' + hike.id);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200 || xhr.status === 204) {
+						location.reload();
+					} else {
+						displayError('ERROR DELETING HIKE' + xhr.status);
+					}
+				}
+			}//readystatechange end
+
+			xhr.send();
+		} 
+	});//event listener end
+////////// HOME BUTTON //////////
+let homeBtnDiv = document.getElementById('homeButtonDiv');
+let homeBtn = document.createElement('input');
+homeBtn.type='submit';
+homeBtn.value='Home';
+homeBtn.class="btn btn-info";
+homeBtnDiv.appendChild(homeBtn);
+homeBtn.addEventListener('click', function(){
+	location.reload();
+});
 }
 
 

@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Hike Tracker</title>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
+<div id='homeButtonDiv'></div>
 <h1 style="text-align:center" id='header'>Hike Tracker</h1>
 <div id='hikesList' style="text-align:center"></div>
 <div id='createHikeDiv' style="text-align:center">
@@ -27,7 +30,7 @@ Image URL: <input type='text' name='imageUrl' placeholder='ImageURL'/><br>
 </form>
 </div>
 
-<div id='singleHike' style="text-align:center">
+<div id='singleHikeDiv' style="text-align:center">
 <img id='singleHikePic'></img>
 <blockquote id='singleHikeDesc'></blockquote>
 <ul style="list-style:none">
@@ -39,6 +42,7 @@ Image URL: <input type='text' name='imageUrl' placeholder='ImageURL'/><br>
 </ul><br>
 <iframe id='singleHikeMap' width="300" height="200" style="border:0" loading="lazy"allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
-
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>
