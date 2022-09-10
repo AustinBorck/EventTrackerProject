@@ -137,7 +137,7 @@ function displaySingleHike(hike){
 	let averagePace = document.getElementById('singleHikeAveragePace');
 	averagePace.textContent = "The average hiker can complete this hike in: " + (hike.trailLength/2) +" hrs."
 	let maps = document.getElementById('singleHikeMap');
-	maps.src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVNDnYjzWkd5lIsjxBYCvkjd3EiPPC_TY&q=" + hike.latitude + "" + hike.longitude;
+	//TODO ADD MAPS
 }
 
 
