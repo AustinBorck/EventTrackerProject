@@ -31,6 +31,7 @@ function init() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200 || xhr.status === 201) {
 					location.reload();
+					alert("Your hike has been added.");
 				} else if (xhr.status === 400) {
 					displayError('Invalid Data');
 				} else {
@@ -65,7 +66,7 @@ function loadAllHikes() {
 }
 function displayHikes(hikeList) {
 	let hikeListDiv = document.getElementById('hikesList');
-	hikeListDiv.textContent = '';
+	hikeListDiv.textContent = ' ';
 	let ul = document.createElement('ul');
 	hikeListDiv.appendChild(ul);
 	for (let hike of hikeList) {
@@ -103,11 +104,10 @@ function displayHikes(hikeList) {
 
 ////////// SINGLE HIKE DISPLAY PAGE //////////
 // TODO:
-//add home button
-//add delete button
 //add update button
 
 function displaySingleHike(hike) {
+	
 	let form = document.getElementById('createHikeDiv');
 	let listOfHikes = document.getElementById('hikesList');
 	let header = document.getElementById('header');
@@ -140,38 +140,153 @@ function displaySingleHike(hike) {
 	let deleteBtn = document.createElement('input');
 	deleteBtn.type = 'submit';
 	deleteBtn.value = 'DELETE';
-	deleteBtn.class = "btn btn-danger";
+	deleteBtn.className = "btn btn-danger";
 	singleHikeDiv.appendChild(deleteBtn);
-////////// DELTE HIKE EVENT LISTENER //////////
+	////////// DELTE HIKE EVENT LISTENER //////////
 	deleteBtn.addEventListener('click', function(e) {
-		if (confirm("Are you sure?")) {
-			let xhr = new XMLHttpRequest();
-			xhr.open('DELETE', 'api/hikes/' + hike.id);
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4) {
-					if (xhr.status === 200 || xhr.status === 204) {
-						location.reload();
-					} else {
-						displayError('ERROR DELETING HIKE' + xhr.status);
-					}
-				}
-			}//readystatechange end
-
-			xhr.send();
-		} 
-	});//event listener end
-////////// HOME BUTTON //////////
-let homeBtnDiv = document.getElementById('homeButtonDiv');
-let homeBtn = document.createElement('input');
-homeBtn.type='submit';
-homeBtn.value='Home';
-homeBtn.class="btn btn-info";
-homeBtnDiv.appendChild(homeBtn);
-homeBtn.addEventListener('click', function(){
-	location.reload();
-});
+		deleteHike(hike);
+	});
+	////////// HOME BUTTON //////////
+	let homeBtnDiv = document.getElementById('homeButtonDiv');
+	let homeBtn = document.createElement('input');
+	homeBtn.type = 'submit';
+	homeBtn.value = 'Home';
+	homeBtn.className = "btn btn-info";
+	homeBtnDiv.appendChild(homeBtn);
+	homeBtn.addEventListener('click', function() {
+		location.reload();
+		init();
+	});
+	let updateBtn = document.createElement('input');
+	updateBtn.type = 'submit';
+	updateBtn.value = 'Update';
+	updateBtn.className = 'btn btn-warning';
+	singleHikeDiv.appendChild(updateBtn);
+	updateBtn.addEventListener('click', function(e) {
+		updateHike(hike);
+	});
 }
 
+function deleteHike(hike) {
+	if (confirm("Are you sure?")) {
+		let xhr = new XMLHttpRequest();
+		xhr.open('DELETE', 'api/hikes/' + hike.id);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200 || xhr.status === 204) {
+					location.reload();
+					init();
+				} else {
+					displayError('ERROR DELETING HIKE' + xhr.status);
+				}
+			}
+		}//readystatechange end
+
+		xhr.send();
+	}
+}//delete hike function end
+
+
+
+/////////UPDATE HIKE //////////
+function updateHike(hike) {
+	
+	let singleHikeData = document.getElementById('singleHikeDiv');
+	singleHikeData.parentElement.removeChild(singleHikeData);
+	let updateDiv = document.getElementById('updateSingleHikeDiv');
+	let updateForm = document.getElementById('updateHikeForm');
+	let name = document.createElement('input');
+	let br = document.createElement('br');
+	let label = document.createElement('h4');
+	let label1 = document.createElement('h4');
+	let label2 = document.createElement('h4');
+	let label3 = document.createElement('h4');
+	let label4 = document.createElement('h4');
+	let label5 = document.createElement('h4');
+	let label6 = document.createElement('h4');
+	let label7 = document.createElement('h4');
+	let label8 = document.createElement('h4');
+	
+	label.textContent='Name';
+	updateForm.appendChild(label);
+	name.type = 'text';
+	name.value = hike.name;
+	name.className='form-control';
+	updateForm.appendChild(name);
+	
+	label1.textContent='Description';
+	updateForm.appendChild(label1);
+	let description = document.createElement('textarea');
+	description.rows=3;
+	description.cols=50;
+	description.value=hike.description;
+	description.appendChild(br);
+	updateForm.appendChild(description);
+	
+	label2.textContent='Difficulty';
+	updateForm.appendChild(label2);
+	let difficulty = document.createElement('input');
+	difficulty.type='number';
+	difficulty.max=5;
+	difficulty.min=1;
+	difficulty.value=hike.difficulty;
+	updateForm.appendChild(difficulty);
+
+	label3.textContent="Latitude";
+	updateForm.appendChild(label3);
+	let lat = document.createElement('input');
+	lat.type='number';
+	lat.value=hike.latitude;
+	updateForm.appendChild(lat);
+	
+	label4.textContent="Longitude";
+	updateForm.appendChild(label4);
+	let long = document.createElement('input');
+	long.type='number';
+	long.value=hike.longitude;
+	updateForm.appendChild(long);
+	
+	label5.textContent="Elevation Gain";
+	updateForm.appendChild(label5);
+	let ele = document.createElement('input');
+	ele.type='number';
+	ele.value=hike.elevation;
+	updateForm.appendChild(ele);
+	
+	label6.textContent="Trail Length in Miles";
+	updateForm.appendChild(label6);
+	let length = document.createElement('input');
+	length.type='number';
+	length.value=hike.trailLength;
+	updateForm.appendChild(length);
+	
+	label7.textContent="Are Dogs Allowed";
+	updateForm.appendChild(label7);
+	let dogs = document.createElement('select');
+	let yes = document.createElement('option');
+	yes.value='true';
+	yes.text='Yes';
+	dogs.appendChild(yes);
+	let no = document.createElement('option');
+	no.value='false';
+	no.text='No';
+	dogs.appendChild(no);
+	updateForm.appendChild(dogs);
+	
+	label8.textContent="Image Url"
+	updateForm.appendChild(label8);
+	let img = document.createElement('input');
+	img.type='text';
+	img.className='form-control';
+	img.value=hike.imageUrl;
+	updateForm.appendChild(img);
+	
+	let updateBtn = document.createElement('input');
+	updateBtn.type='submit';
+	updateBtn.value='Update'
+	updateForm.appendChild(updateBtn);
+	updateDiv.appendChild(updateForm);
+}
 
 ///////// ERROR MSG FUNCTION //////////
 function displayError(msg) {
