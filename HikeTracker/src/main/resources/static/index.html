@@ -8,13 +8,10 @@
 <body>
 <h1 style="text-align:center">Hike Tracker</h1>
 <div id='hikesList' style="text-align:center"></div>
-<div id='singleHike' style="text-align:center"></div>
-
-
 <div id='createHikeDiv' style="text-align:center">
 <form id='createHike' name='createHike'>
 <h2>Create a Hike</h2>
-Name: <input type='text' name='name' placeholder='Name'/><br>
+Name: <input type='text' name='name' placeholder='Name' required/><br>
 Description: <input type='text' name='description' placeholder='Description'/><br>
 Difficulty: <input type='number' name='difficulty' min=1 max=5 step=1/><br>
 Latitude: <input type='number' name='lat' placeholder='Latitude'/><br>
@@ -27,10 +24,21 @@ Dogs allowed: <select name="dogsAllowed">
 </select><br>
 Image URL: <input type='text' name='imageUrl' placeholder='ImageURL'/><br>
 <input type='submit' name='createBtn' value='Create'/>
-
-
-
 </form>
+</div>
+
+<div id='singleHike' style="text-align:center">
+<p id='hikeId'></p>
+<h2 id='singleHikeTitle'></h2>
+<a id='singleHikePic'></a>
+<blockquote id='singleHikeDesc'></blockquote>
+<ul style="list-style:none">
+<li id='difficulty'></li>
+<li id='elevation'></li>
+<li id='trailLength'></li>
+<li id='dogsAllowed'></li>
+</ul>
+<iframe width="300" height="200" style="border:0" loading="lazy"allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
 </body>
