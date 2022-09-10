@@ -46,26 +46,6 @@ function init() {
 
 }//INIT END
 
-////////// getSingleHike FUNCTION START //////////
-/*function getSingleHike(id){
-	let xhr = new XMLHttpRequest();
-	xhr.open('GET', 'api/hikes/' + id);
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState === 4) {
-			if(xhr.status === 200){
-				let hike = JSON.parse(xhr.responseText);
-				console.log(hike);
-				//TODO SEND HIKE TO SINGLE DISPLAY FUNCTION
-			}else{
-				console.log('ERROR DISPLAYING HIKE: ' + xhr.status);
-			}
-		}
-	}//onreadystatechange end
-	xhr.send();
-}*/
-////////// getSingleHike FUNCTION END //////////
-
-
 ////////// BEGINNING LOADING/DISPLAYING ALL HIKES //////////
 function loadAllHikes() {
 	let xhr = new XMLHttpRequest();
@@ -94,6 +74,7 @@ function displayHikes(hikeList) {
 		ul.appendChild(br);
 		li.textContent = hike.name;
 		li.style = "list-style:none";
+////////// ADDING LISTENER TO GET A SINGLE HIKE //////////
 		li.addEventListener('click', function(e) {
 				console.log('HIKES ID ===== ' + hike.id);
 				let xhr = new XMLHttpRequest();
@@ -104,7 +85,7 @@ function displayHikes(hikeList) {
 							let hike = JSON.parse(xhr.responseText);
 							console.log(hike);
 							//TODO SEND HIKE TO SINGLE DISPLAY FUNCTION
-							//displaySingleHike(hike);
+							displaySingleHike(hike);
 						} else {
 							console.log('ERROR DISPLAYING HIKE: ' + xhr.status);
 						}
@@ -119,6 +100,45 @@ function displayHikes(hikeList) {
 
 }
 ////////// END LOADING/DISPLAYING ALL HIKES //////////
+
+////////// SINGLE HIKE DISPLAY PAGE //////////
+// TODO:
+//remove other data
+// Display hike with pic && google maps api
+//add home button
+//add delete button
+//add update button
+
+function displaySingleHike(hike){
+	let form = document.getElementById('createHikeDiv');
+	let listOfHikes = document.getElementById('hikesList');
+	let header = document.getElementById('header');
+	form.parentElement.removeChild(form);
+	listOfHikes.parentElement.removeChild(listOfHikes);
+	header.textContent = hike.name;
+	let singleHikePic = document.getElementById('singleHikePic');
+	singleHikePic.src = hike.imageUrl;
+	singleHikePic.height = 500;
+	singleHikePic.width = 800;
+	let singleHikeDesc = document.getElementById('singleHikeDesc');
+	singleHikeDesc.textContent = hike.description;
+	let difficulty = document.getElementById('singleHikeDifficulty');
+	difficulty.textContent = "Difficulty Level: " + hike.difficulty;
+	let elevation = document.getElementById('singleHikeElevation');
+	elevation.textContent = "Elevation Gain: " + hike.elevation +"ft";
+	let trailLength = document.getElementById('singleHikeTrailLength');
+	trailLength.textContent = "Trail Length: " + hike.trailLength + "mi";
+	let dogsAllowed = document.getElementById('singleHikeDogsAllowed');
+	if(hike.dogsAllowed){
+		dogsAllowed.textContent = "Dogs are allowed.";
+	}else{
+	dogsAllowed.textContent = "No dogs allowed.";
+	}
+	let averagePace = document.getElementById('singleHikeAveragePace');
+	averagePace.textContent = "The average hiker can complete this hike in: " + (hike.trailLength/2) +" hrs."
+	let maps = document.getElementById('singleHikeMap');
+	maps.src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVNDnYjzWkd5lIsjxBYCvkjd3EiPPC_TY&q=" + hike.latitude + "" + hike.longitude;
+}
 
 
 ///////// ERROR MSG FUNCTION //////////

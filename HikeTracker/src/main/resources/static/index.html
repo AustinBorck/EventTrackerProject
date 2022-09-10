@@ -6,7 +6,7 @@
 <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-<h1 style="text-align:center">Hike Tracker</h1>
+<h1 style="text-align:center" id='header'>Hike Tracker</h1>
 <div id='hikesList' style="text-align:center"></div>
 <div id='createHikeDiv' style="text-align:center">
 <form id='createHike' name='createHike'>
@@ -28,17 +28,16 @@ Image URL: <input type='text' name='imageUrl' placeholder='ImageURL'/><br>
 </div>
 
 <div id='singleHike' style="text-align:center">
-<p id='hikeId'></p>
-<h2 id='singleHikeTitle'></h2>
-<a id='singleHikePic'></a>
+<img id='singleHikePic'></img>
 <blockquote id='singleHikeDesc'></blockquote>
 <ul style="list-style:none">
-<li id='difficulty'></li>
-<li id='elevation'></li>
-<li id='trailLength'></li>
-<li id='dogsAllowed'></li>
-</ul>
-<iframe width="300" height="200" style="border:0" loading="lazy"allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+<li id='singleHikeDifficulty'></li>
+<li id='singleHikeElevation'></li>
+<li id='singleHikeTrailLength'></li>
+<li id='singleHikeDogsAllowed'></li>
+<li id='singleHikeAveragePace'></li>
+</ul><br>
+<iframe id='singleHikeMap' width="300" height="200" style="border:0" loading="lazy"allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 
 </body>
