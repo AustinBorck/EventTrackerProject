@@ -12,9 +12,13 @@
 
 <div id='errorDiv'></div>
 <div id='search by difficulty'>
-<form id='searchByDifficultyForm'>
-<input type='number' id='hikeByDifficulty' min=1 max=5 style='margin:10px; width:100px'>
-<input type='submit' value='Search By Hike Difficulty' id='submitByDifficultySearch'>
+<form id='searchByDifficultyForm' name='searchByDifficultyForm'>
+<input type='number' name='hikeByDifficultyNum' id='hikeByDifficulty' min=1 max=5 style='margin:10px; width:80px'>
+<button name='submitByDifficultySearch'>Search By Difficulty</button>
+</form>
+<form id='searchByNameForm' name='searchByNameForm'>
+<input type='text' name='hikeByName' id='hikeByName' style='margin:10px; width:150px'>
+<button name='submitNameSearch'>Search By Name</button>
 </form>
 </div>
 <div id='homeButtonDiv'></div>
