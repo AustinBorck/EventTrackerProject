@@ -12,8 +12,8 @@ An individual hikes page will also have 'aggregated data' showing the user how l
 ## Technology Used
 * Java
 * JavaScript
-* AWS Ec2
-* zsh/BASH
+* AWS EC2
+* Zsh/Bash
 * Bootstrap
 * Git
 * Gradle
