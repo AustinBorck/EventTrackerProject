@@ -31,6 +31,7 @@
   </div>
   <!--FORM ADDING HIKE-->
   <form *ngIf="!selectedHike && showForm" name="createHikeForm">
+    <br><br><br><br><br><br><br><br><br><br>
     <div class="form-group">
       Name:
       <input type="text" name = 'name' placeholder="Name" class="form-control" [(ngModel)]="newHike.name"><br>
@@ -63,7 +64,7 @@
     <button (click)="displayAllHikes()" class="btn btn-info">Back</button>
     <div class="text-center">
       <h1>{{selectedHike.name}}</h1>
-      <img [src]="selectedHike.imageUrl" alt="{{selectedHike.name}}">
+      <img [src]="selectedHike.imageUrl" alt="{{selectedHike.name}}" height="410px" width="700px">
       <blockquote>{{selectedHike.description}}</blockquote>
       <ul style="list-style-type: none;">
         <li>Elevation Gain: {{selectedHike.elevation}}ft</li>

@@ -29,3 +29,20 @@ table, td {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   outline-width: 5px !important;
 }
+blockquote{
+  text-align: center;
+  table-layout: fixed;
+  color: white !important;
+  outline-color: black;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  outline-width: 5px !important;
+}
+ul{
+  text-align: center;
+  table-layout: fixed;
+  color: white !important;
+  outline-color: black;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  outline-width: 5px !important;
+}
+
