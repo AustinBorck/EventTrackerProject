@@ -14,6 +14,15 @@ export class HomeComponent implements OnInit {
   editHike: Hike | null = null;
   selectedHike: Hike | null = null;
   showForm: boolean = false;
+  keyword: string = '';
+  selectedDifficulty = 0;
+  difficulties = [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
   constructor(private hikeServ: HikeService) {}
 
   ngOnInit(): void {
@@ -76,6 +85,18 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  searchByName(){
+    this.hikeServ.search(this.keyword).subscribe({
+      next: (result) => {
+        this.hikes = result;
+      },
+      error: (err) => {
+        console.error(
+          'HikeComponent.searchByName() error getting hikes: ' + err
+        );
+      },
+    })
+  }
   //////////////////////////////////////////////////// NON DATABASE FUNCTIONS /////////////////////////////////////////
   displayHike(hike: Hike) {
     this.selectedHike = hike;

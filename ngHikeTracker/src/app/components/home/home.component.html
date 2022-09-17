@@ -1,4 +1,12 @@
+<br><form class="d-flex" role="search">
+  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword" id="keyword" [(ngModel)]=keyword>
+  <button class="btn btn-outline-success" type="submit" (click)="searchByName()">Search</button>
+</form><br>
+<!--DISPLAY HIKE LIST-->
 <div *ngIf="!selectedHike">
+  <!-- DIFFICULTY PIPE-->
+  <h5>Select Difficulty:</h5><br>
+  <span (click)="selectedDifficulty = difficulty" *ngFor="let difficulty of difficulties" class="difficultyPipe">{{difficulty}}</span>
   <h1 class="text-center">{{title}} Home</h1>
   <table class="table table-striped table-hover">
     <thead>
@@ -9,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let hike of hikes" (click)="displayHike(hike)">
+      <tr *ngFor="let hike of hikes | hikeDifficulty:selectedDifficulty" (click)="displayHike(hike)">
         <td>{{hike.name}}</td>
         <td>{{hike.trailLength}}</td>
         <td>{{hike.difficulty}}</td>
@@ -48,8 +56,9 @@
   </div>
 </form>
 <!--SELECTED HIKE-->
-<div *ngIf="selectedHike" class="text-center">
-<button (click)="displayAllHikes()" class="btn btn-info">Home</button>
+<div *ngIf="selectedHike">
+<button (click)="displayAllHikes()" class="btn btn-info">Back</button>
+<div class="text-center">
 <h1>{{selectedHike.name}}</h1>
 <img [src]="selectedHike.imageUrl" alt="{{selectedHike.name}}">
 <blockquote>{{selectedHike.description}}</blockquote>
@@ -65,10 +74,11 @@
   </div>
   <li>The Average Hiker can Complete this Hike in: {{selectedHike.trailLength / 2}} hrs</li>
 </ul>
+</div>
   <button (click)="setEditHike()" class="btn btn-warning">Edit</button>
   <button (click)="deleteHike(selectedHike.id)" class="btn btn-danger">Delete</button>
 </div>
-
+<!--FORM EDIT HIKE-->
 <div *ngIf="editHike">
 <form name="editHikeForm">
   <div class="form-group">

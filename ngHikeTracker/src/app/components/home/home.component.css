@@ -1,0 +1,9 @@
+.difficultyPipe{
+  color: blue;
+  letter-spacing: .5in;
+  font-size: large;
+
+}
+.difficultyPipe:hover{
+  color: red;
+}

@@ -53,4 +53,14 @@ export class HikeService {
       })
     )
   }
+  search(keyword : string){
+    return this.http.get<Hike[]>(this.url + "/" + "search" + "/" + keyword).pipe(
+      catchError((err:any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('HikeService.search(): error searching for Hikes: ' + err)
+        );
+      })
+    )
+  }
 }
