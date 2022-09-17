@@ -1,111 +1,115 @@
-<br><form class="d-flex" role="search">
-  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword" id="keyword" [(ngModel)]=keyword>
-  <button class="btn btn-outline-success" type="submit" (click)="searchByName()">Search</button>
-</form><br>
-<!--DISPLAY HIKE LIST-->
-<div *ngIf="!selectedHike">
-  <!-- DIFFICULTY PIPE-->
-  <h5>Select Difficulty:</h5><br>
-  <span (click)="selectedDifficulty = difficulty" *ngFor="let difficulty of difficulties" class="difficultyPipe">{{difficulty}}</span>
-  <h1 class="text-center">{{title}} Home</h1>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Trail Length</th>
-        <th>Difficulty</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let hike of hikes | hikeDifficulty:selectedDifficulty" (click)="displayHike(hike)">
-        <td>{{hike.name}}</td>
-        <td>{{hike.trailLength}}</td>
-        <td>{{hike.difficulty}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <button (click)="showForm = true" class="btn btn-info">Create a New Hike</button><br><br>
-</div>
-<!--FORM ADDING HIKE-->
-<form *ngIf="!selectedHike && showForm" name="createHikeForm">
-  <div class="form-group">
-    Name:
-    <input type="text" name = 'name' placeholder="Name" class="form-control" [(ngModel)]="newHike.name"><br>
-    Description:
-    <textarea name="description" placeholder="Description" cols="20" rows="5" class="form-control" [(ngModel)]="newHike.description"></textarea><br>
-    Difficulty:
-    <input type="number" name="difficulty" min="1" max="5" class="form-control" [(ngModel)]="newHike.difficulty">
-    Latitude:
-    <input type="number" class="form-control" name="latitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="newHike.latitude">
-    Longitude:
-    <input type="number" class="form-control" name="longitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="newHike.longitude">
-    Elevation Gain:
-    <input type="number" name="elevation" class="form-control" min="1" [(ngModel)]="newHike.elevation">
-    Trail Length in Miles:
-    <input type="number" name="trailLength" class="form-control" min=".01" [(ngModel)]="newHike.trailLength">
-    Dogs Allowed:
-    <select name="dogsAllowed" class="form-control" [(ngModel)]="newHike.dogsAllowed">
-      <option value="true">Yes</option>
-      <option value="false">No</option>
-    </select>
-    Image URL:
-    <input type="text" name="imageUrl" class="form-control" [(ngModel)]="newHike.imageUrl">
-    <button class="btn btn-success" (click)="addHike(newHike)">Add Hike</button>
-    <button (click)="showForm = false" class="btn btn-danger">Cancel</button>
-    <br><br><br>
+<main class="class container-fluid">
+
+  <br><form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword" id="keyword" [(ngModel)]=keyword>
+    <button class="btn btn-outline-success" type="submit" (click)="searchByName()">Search</button>
+  </form><br>
+  <!--DISPLAY HIKE LIST-->
+  <div *ngIf="!selectedHike">
+    <!-- DIFFICULTY PIPE-->
+    <h5>Select Difficulty:</h5><br>
+    <h6 (click)="selectedDifficulty = 0" class="showAll"><u>Show All</u></h6>
+    <span (click)="selectedDifficulty = difficulty" *ngFor="let difficulty of difficulties" class="difficultyPipe">{{difficulty}}</span>
+    <h1 class="text-center">{{title}} Home</h1>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Trail Length</th>
+          <th>Difficulty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hike of hikes | hikeDifficulty:selectedDifficulty" (click)="displayHike(hike)">
+          <td>{{hike.name}}</td>
+          <td>{{hike.trailLength}}</td>
+          <td>{{hike.difficulty}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="showForm = true" class="btn btn-info">Create a New Hike</button><br><br>
   </div>
-</form>
-<!--SELECTED HIKE-->
-<div *ngIf="selectedHike">
-<button (click)="displayAllHikes()" class="btn btn-info">Back</button>
-<div class="text-center">
-<h1>{{selectedHike.name}}</h1>
-<img [src]="selectedHike.imageUrl" alt="{{selectedHike.name}}">
-<blockquote>{{selectedHike.description}}</blockquote>
-<ul style="list-style-type: none;">
-  <li>Elevation Gain: {{selectedHike.elevation}}ft</li>
-  <li>Hike Difficulty Level: {{selectedHike.difficulty}}</li>
-  <li>Hike Latitude & Longitude: {{selectedHike.latitude}} / {{selectedHike.longitude}}</li>
-  <div *ngIf="selectedHike.dogsAllowed">
-    <li>Dogs are Allowed!</li>
+  <!--FORM ADDING HIKE-->
+  <form *ngIf="!selectedHike && showForm" name="createHikeForm">
+    <div class="form-group">
+      Name:
+      <input type="text" name = 'name' placeholder="Name" class="form-control" [(ngModel)]="newHike.name"><br>
+      Description:
+      <textarea name="description" placeholder="Description" cols="20" rows="5" class="form-control" [(ngModel)]="newHike.description"></textarea><br>
+      Difficulty:
+      <input type="number" name="difficulty" min="1" max="5" class="form-control" [(ngModel)]="newHike.difficulty">
+      Latitude:
+      <input type="number" class="form-control" name="latitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="newHike.latitude">
+      Longitude:
+      <input type="number" class="form-control" name="longitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="newHike.longitude">
+      Elevation Gain:
+      <input type="number" name="elevation" class="form-control" min="1" [(ngModel)]="newHike.elevation">
+      Trail Length in Miles:
+      <input type="number" name="trailLength" class="form-control" min=".01" [(ngModel)]="newHike.trailLength">
+      Dogs Allowed:
+      <select name="dogsAllowed" class="form-control" [(ngModel)]="newHike.dogsAllowed">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+      Image URL:
+      <input type="text" name="imageUrl" class="form-control" [(ngModel)]="newHike.imageUrl">
+      <button class="btn btn-success" (click)="addHike(newHike)">Add Hike</button>
+      <button (click)="showForm = false" class="btn btn-danger">Cancel</button>
+      <br><br><br>
+    </div>
+  </form>
+  <!--SELECTED HIKE-->
+  <div *ngIf="selectedHike">
+    <button (click)="displayAllHikes()" class="btn btn-info">Back</button>
+    <div class="text-center">
+      <h1>{{selectedHike.name}}</h1>
+      <img [src]="selectedHike.imageUrl" alt="{{selectedHike.name}}">
+      <blockquote>{{selectedHike.description}}</blockquote>
+      <ul style="list-style-type: none;">
+        <li>Elevation Gain: {{selectedHike.elevation}}ft</li>
+        <li>Hike Difficulty Level: {{selectedHike.difficulty}}</li>
+        <li>Hike Latitude & Longitude: {{selectedHike.latitude}} / {{selectedHike.longitude}}</li>
+        <div *ngIf="selectedHike.dogsAllowed">
+          <li>Dogs are Allowed!</li>
+        </div>
+        <div *ngIf="!selectedHike.dogsAllowed">
+          <li>No Dogs Allowed.</li>
+        </div>
+        <li>The Average Hiker can Complete this Hike in: {{selectedHike.trailLength / 2}} hrs</li>
+      </ul>
+    </div>
+    <button (click)="setEditHike()" class="btn btn-warning">Edit</button>
+    <button (click)="deleteHike(selectedHike.id)" class="btn btn-danger">Delete</button>
   </div>
-  <div *ngIf="!selectedHike.dogsAllowed">
-    <li>No Dogs Allowed.</li>
+  <!--FORM EDIT HIKE-->
+  <div *ngIf="editHike">
+    <form name="editHikeForm">
+      <div class="form-group">
+        Name:
+        <input type="text" name = 'name' placeholder="Name" class="form-control" [(ngModel)]="editHike.name"><br>
+        Description:
+        <textarea name="description" placeholder="Description" cols="20" rows="5" class="form-control" [(ngModel)]="editHike.description"></textarea><br>
+        Difficulty:
+        <input type="number" name="difficulty" min="1" max="5" class="form-control" [(ngModel)]="editHike.difficulty">
+        Latitude:
+        <input type="number" class="form-control" name="latitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="editHike.latitude">
+        Longitude:
+        <input type="number" class="form-control" name="longitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="editHike.longitude">
+        Elevation Gain:
+        <input type="number" name="elevation" class="form-control" min="1" [(ngModel)]="editHike.elevation">
+        Trail Length in Miles:
+        <input type="number" name="trailLength" class="form-control" min=".01" [(ngModel)]="editHike.trailLength">
+        Dogs Allowed:
+        <select name="dogsAllowed" class="form-control" [(ngModel)]="newHike.dogsAllowed">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+        Image URL:
+        <input type="text" name="imageUrl" class="form-control" [(ngModel)]="editHike.imageUrl">
+        <button class="btn btn-success" (click)="updateHike(editHike)">Submit</button>
+        <button (click)="editHike = null" class="btn btn-danger">Cancel</button>
+        <br><br><br>
+      </div>
+    </form>
   </div>
-  <li>The Average Hiker can Complete this Hike in: {{selectedHike.trailLength / 2}} hrs</li>
-</ul>
-</div>
-  <button (click)="setEditHike()" class="btn btn-warning">Edit</button>
-  <button (click)="deleteHike(selectedHike.id)" class="btn btn-danger">Delete</button>
-</div>
-<!--FORM EDIT HIKE-->
-<div *ngIf="editHike">
-<form name="editHikeForm">
-  <div class="form-group">
-    Name:
-    <input type="text" name = 'name' placeholder="Name" class="form-control" [(ngModel)]="editHike.name"><br>
-    Description:
-    <textarea name="description" placeholder="Description" cols="20" rows="5" class="form-control" [(ngModel)]="editHike.description"></textarea><br>
-    Difficulty:
-    <input type="number" name="difficulty" min="1" max="5" class="form-control" [(ngModel)]="editHike.difficulty">
-    Latitude:
-    <input type="number" class="form-control" name="latitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="editHike.latitude">
-    Longitude:
-    <input type="number" class="form-control" name="longitude" class="form-control" min=".000001" max="99.9999999" [(ngModel)]="editHike.longitude">
-    Elevation Gain:
-    <input type="number" name="elevation" class="form-control" min="1" [(ngModel)]="editHike.elevation">
-    Trail Length in Miles:
-    <input type="number" name="trailLength" class="form-control" min=".01" [(ngModel)]="editHike.trailLength">
-    Dogs Allowed:
-    <select name="dogsAllowed" class="form-control" [(ngModel)]="newHike.dogsAllowed">
-      <option value="true">Yes</option>
-      <option value="false">No</option>
-    </select>
-    Image URL:
-    <input type="text" name="imageUrl" class="form-control" [(ngModel)]="editHike.imageUrl">
-    <button class="btn btn-success" (click)="updateHike(editHike)">Submit</button>
-    <button (click)="editHike = null" class="btn btn-danger">Cancel</button>
-    <br><br><br>
-  </div>
-</form>
-</div>
+</main>
