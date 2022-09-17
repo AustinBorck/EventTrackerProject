@@ -53,7 +53,7 @@ public class HikeServiceImpl implements HikeService {
 	updateMe.setName(hike.getName());
 	updateMe.setDescription(hike.getDescription());
 	updateMe.setDifficulty(hike.getDifficulty());
-	updateMe.setDogsAllowed(hike.isDogsAllowed());
+	updateMe.setDogsAllowed(hike.getDogsAllowed());
 	updateMe.setElevation(hike.getElevation());
 	updateMe.setImageUrl(hike.getImageUrl());
 	updateMe.setLatitude(hike.getLatitude());

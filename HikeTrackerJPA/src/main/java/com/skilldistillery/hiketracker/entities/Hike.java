@@ -94,7 +94,7 @@ public class Hike {
 		this.imageUrl = imageUrl;
 	}
 
-	public boolean isDogsAllowed() {
+	public boolean getDogsAllowed() {
 		return dogsAllowed;
 	}
 
