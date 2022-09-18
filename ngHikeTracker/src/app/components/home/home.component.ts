@@ -101,12 +101,12 @@ export class HomeComponent implements OnInit {
   }
   checkLevel(num: number) {
     if (num <= 2) {
-      return 'bg-success';
+      return 'easy';
     }
     if (num <= 4) {
-      return 'bg-warning';
+      return 'medium';
     } else {
-      return 'bg-danger';
+      return 'hard';
     }
   }
 }

@@ -53,3 +53,12 @@ html{
   background: fixed;
   height: 100vh;
 }
+.easy{
+  background: rgba(0, 151, 19, 0.5);
+}
+.medium{
+  background: rgba(255, 247, 0, 0.5);
+}
+.hard{
+  background: rgba(254, 4, 4, 0.5);
+}
