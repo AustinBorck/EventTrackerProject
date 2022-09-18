@@ -16,13 +16,7 @@ export class HomeComponent implements OnInit {
   showForm: boolean = false;
   keyword: string = '';
   selectedDifficulty = 0;
-  difficulties = [
-    1,
-    2,
-    3,
-    4,
-    5
-  ]
+  difficulties = [1, 2, 3, 4, 5];
   constructor(private hikeServ: HikeService) {}
 
   ngOnInit(): void {
@@ -70,7 +64,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  updateHike(hike : Hike){
+  updateHike(hike: Hike) {
     this.hikeServ.update(hike).subscribe({
       next: (result) => {
         this.selectedHike = result;
@@ -78,14 +72,12 @@ export class HomeComponent implements OnInit {
         this.reload();
       },
       error: (err) => {
-        console.error(
-          'HikeComponent.deleteHike() error editing hike: ' + err
-        );
+        console.error('HikeComponent.deleteHike() error editing hike: ' + err);
       },
-    })
+    });
   }
 
-  searchByName(){
+  searchByName() {
     this.hikeServ.search(this.keyword).subscribe({
       next: (result) => {
         this.hikes = result;
@@ -95,7 +87,7 @@ export class HomeComponent implements OnInit {
           'HikeComponent.searchByName() error getting hikes: ' + err
         );
       },
-    })
+    });
   }
   //////////////////////////////////////////////////// NON DATABASE FUNCTIONS /////////////////////////////////////////
   displayHike(hike: Hike) {
@@ -106,5 +98,15 @@ export class HomeComponent implements OnInit {
   }
   setEditHike() {
     this.editHike = Object.assign({}, this.selectedHike);
+  }
+  checkLevel(num: number) {
+    if (num <= 2) {
+      return 'bg-success';
+    }
+    if (num <= 4) {
+      return 'bg-warning';
+    } else {
+      return 'bg-danger';
+    }
   }
 }

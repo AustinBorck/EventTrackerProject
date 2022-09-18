@@ -25,7 +25,7 @@
           <tr *ngFor="let hike of hikes | hikeDifficulty:selectedDifficulty" (click)="displayHike(hike)">
             <td>{{hike.name}}</td>
             <td>{{hike.trailLength}}</td>
-            <td>{{hike.difficulty}}</td>
+            <td [ngClass]="checkLevel(hike.difficulty)">{{hike.difficulty}}</td>
           </tr>
         </tbody>
       </table>

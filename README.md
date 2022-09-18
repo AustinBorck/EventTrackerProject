@@ -10,7 +10,7 @@ In this project, a user can search for hikes and view a picture of the hike alon
 An individual hikes page will also have 'aggregated data' showing the user how long it would take the average person to complete that hike. I found this data by dividing the hikes trail length by the average hiking pace, (2mph according to The New York Times). One of my goals in this project was to keep it as dynamic as possible, growing and shrinking the single HTML as a user selects what they want to see. I did this by using DOM manipulation and assigning empty textContent to the items that I did not want to display depending on the users selection.
 
 ##### (ANGULAR FRONT END)
-A user can click on a list of difficulty levels and the hikes with that difficulty level will appear in a table format for the user to select from. The user also has a search bar function to find a hike by a keyword in the title or description of a hike. The user also has a nav bar to see a little bit about why I created this website and the plans I have for it in the future.
+A user can click on a list of difficulty levels and the hikes with that difficulty level will appear in a table format for the user to select from. The user also has a search bar function to find a hike by a keyword in the title or description of a hike. The user also has a nav bar to see a little bit about why I created this website and the plans I have for it in the future. The table will also have a background color for the trail difficulty, red if it is level 5, yellow if it is level 3 or 4 and green if it is level 1 or 2.
 
 -----
 ## Technology Used
