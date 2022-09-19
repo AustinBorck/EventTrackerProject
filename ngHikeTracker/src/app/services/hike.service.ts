@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -7,8 +8,8 @@ import { Hike } from '../models/hike';
   providedIn: 'root'
 })
 export class HikeService {
-  private baseUrl = 'http://localhost:8082/';
-  private url = this.baseUrl + 'api/hikes';
+  //private baseUrl = 'http://localhost:8082/';
+  private url = environment.baseUrl + 'api/hikes';
 
   constructor(private http : HttpClient) { }
 
